@@ -20,7 +20,11 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
-    "core-js": "^2.5.4",
+    "body-parser": "^1.18.3",
+    "core-js": "2.5.5",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
     "rxjs": "~6.2.0",
     "zone.js": "~0.8.26"
   },
