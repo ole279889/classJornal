@@ -1,25 +1,38 @@
 [
-   {
+    {
       "id": "1",
-      "username" : "1",
-      "password" : "111111",
-	  "firstName" : "mahesh",
-	  "lastName" : "dfggfdg"       
+      "username"  : "admin",
+      "password"  : "admin123",
+	  "firstName" : "admin",
+	  "lastName"  : "",
+      "role"	  : "admin",
+	  "group"     : ""
    },
-   
    {
       "id": "2",
-      "username" : "2",
-      "password" : "222222",
-	  "firstName" : "suresh",
-	  "lastName" : "kklk"      
-   },
-   
+      "username"  : "1",
+      "password"  : "111111",
+	  "firstName" : "mahesh",
+	  "lastName"  : "dfggfdg",
+      "role"	  : "Ученик",
+	  "group"     : "1a"       
+   },   
    {
       "id": "3",
-      "username" : "3",
-      "password" : "333333",
+      "username"  : "2",
+      "password"  : "222222",
+	  "firstName" : "suresh",
+	  "lastName"  : "kklk",
+      "role"	  : "Учитель",
+	  "group"     : ""      
+   },   
+   {
+      "id": "4",
+      "username"  : "3",
+      "password"  : "333333",
 	  "firstName" : "ramesh",
-	  "lastName" : "qeqeqe"      
+	  "lastName"  : "qeqeqe",
+      "role"	  : "Ученик",
+	  "group"     : "1a"      
    }
 ]

@@ -9,7 +9,7 @@ import { routing }        from './app.routing';
 import { AlertComponent } from './alert';
 import { AuthGuard } from './shared/guards';
 import { JwtInterceptor, ErrorInterceptor } from './shared/helpers';
-import { AlertService, AuthenticationService, UserService } from './shared/services';
+import { AlertService, AuthenticationService, UserService, GroupsService } from './shared/services';
 import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
@@ -33,6 +33,7 @@ import { RegisterComponent } from './register';
         AlertService,
         AuthenticationService,
         UserService,
+		GroupsService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     ],

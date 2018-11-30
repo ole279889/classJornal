@@ -14,7 +14,7 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getAll() {	
-		return this.http.get('http://localhost:3000/listUsers', {responseType: 'json'});;
+		return this.http.get('http://localhost:3000/listUsers', {responseType: 'json'});
     }
 
     getById(id: number) {

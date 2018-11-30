@@ -24,30 +24,39 @@ function maxUID() {
   }
   return (maxUid + 1).toString();;  
 }
-
+//------------------------groups----------------------------
+app.get('/groups', function (req, res) {	
+  fs.readFile( __dirname + "/" + "backend-data/groups.json", 'utf8', function (err, data) {    
+    res.end( data );
+  });  
+});
+//------------------------groups----------------------------
+//------------------------users-----------------------------
 app.get('/listUsers', function (req, res) {	
   res.end( this._users );   
-})
+});
 
 app.get('/:id', function (req, res) {
   var users = JSON.parse(this._users);  
   var user = users.find((user,i) => user.id === req.params.id);
   res.end(JSON.stringify(user));   
-})
+});
 
 app.post('/addUser', function (req, res) {   
   users = JSON.parse( this._users );	  
   var user = {
 		  "id": maxUID(),
-          "username" : req.body.username,
-          "password" : req.body.password,
+          "username"  : req.body.username,
+          "password"  : req.body.password,
 	      "firstName" : req.body.firstName,
-	      "lastName" : req.body.lastName		  
+	      "lastName"  : req.body.lastName,
+          "role"	  : req.body.role,
+	      "group"     : req.body.group		  
   }
   users.push(user);
   this._users = JSON.stringify(users);	  
   res.end(JSON.stringify(users));   
-})
+});
 
 app.post('/authenticate', function (req, res) {   
   users = JSON.parse( this._users );
@@ -58,24 +67,27 @@ app.post('/authenticate', function (req, res) {
     var user = filteredUsers[0]; 
     var body = {
 		         id: user.id,
-                 username : user.username,
-                 password : user.password,
+                 username  : user.username,
+                 password  : user.password,
 	             firstName : user.firstName,
-	             lastName : user.lastName,
+	             lastName  : user.lastName,
+                 role	   : user.role,
+	             group     : user.group,
                  token: "fake-jwt-token"		  
                }  
     res.end(JSON.stringify(body));
   } else {
     res.status(403).send("Authorization failed! Username or password is incorrect."); 
   } 
-})
+});
 
 app.delete('/deleteUser/:id', function (req, res) {
   var users = JSON.parse(this._users);
   users.splice(users.findIndex((item) => item.id === req.params.id), 1);	  
   this._users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
-})
+});
+//------------------------users-----------------------------
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
@@ -86,4 +98,4 @@ var server = app.listen(3000, function () {
    var host = server.address().address
    var port = server.address().port
    console.log("Example app listening at http://%s:%s", host, port)
-})
+});
