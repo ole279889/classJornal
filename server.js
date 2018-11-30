@@ -10,9 +10,14 @@ app.use(bodyParser.json({
 
 var fs = require("fs");
 
-var _users = []
+var _users = [];
 fs.readFile( __dirname + "/" + "backend-data/users.json", 'utf8', function (err, data) {
   this._users = data;		  
+});
+
+var _schedule = [];
+fs.readFile( __dirname + "/" + "backend-data/schedule.json", 'utf8', function (err, data) {
+  this._schedule = data;		  
 });
 
 function maxUID() {  
@@ -31,9 +36,20 @@ app.get('/groups', function (req, res) {
   });  
 });
 //------------------------groups----------------------------
-//------------------------users-----------------------------
-app.get('/listUsers', function (req, res) {	
+//------------------------subjects----------------------------
+app.get('/subjects', function (req, res) {	
+  fs.readFile( __dirname + "/" + "backend-data/subjects.json", 'utf8', function (err, data) {    
+    res.end( data );
+  });  
+});
+//------------------------subjects----------------------------
+//------------------------users&schedule-----------------------------
+app.get('/listUsers', function (req, res) {
   res.end( this._users );   
+});
+
+app.get('/schedule', function (req, res) {	
+  res.end( this._schedule );   
 });
 
 app.get('/:id', function (req, res) {
@@ -88,7 +104,6 @@ app.delete('/deleteUser/:id', function (req, res) {
   res.end( JSON.stringify(users));   
 });
 //------------------------users-----------------------------
-
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');

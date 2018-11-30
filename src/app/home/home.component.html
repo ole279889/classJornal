@@ -1,9 +1,10 @@
+
 <h1>Здравствуйте, {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
-<h3>Все зарегистрированные пользователи:</h3>
+<h3>Текущее расписание:</h3>
 <ul>
-    <li *ngFor="let user of users">
-        {{user.username}} ({{user.firstName}} {{user.lastName}} : {{user.role + ((user.role === "Ученик") ? (" " + user.group) : (""))}})
-        - <a (click)="deleteUser(user.id)" class="text-danger">Удалить</a>
-    </li>
+  <li *ngFor="let lesson of schedule">
+    {{lesson.date}} {{lesson.subject}} {{lesson.group}} {{this.getFIO(lesson.teacherId)}}
+    - <a (click)="deleteLesson(lesson.id)" class="text-danger">Удалить</a>
+  </li>
 </ul>
 <p><a [routerLink]="['/login']">Выйти</a></p>

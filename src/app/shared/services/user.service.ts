@@ -10,7 +10,8 @@ import { User } from '../models';
 
 @Injectable()
 export class UserService {
-			
+	user: User;
+	
     constructor(private http: HttpClient) { }
 
     getAll() {	
@@ -20,7 +21,17 @@ export class UserService {
     getById(id: number) {
         return this.http.get(`http://localhost:3000/` + id);
     }
-
+    
+	getFIO(id: number) {
+		console.log(id);
+        this.getById(id).subscribe((_user : User) => { 
+            console.log(_user);
+			this.user = _user; 
+        });
+		console.log(this.user);
+		return this.user.firstName;
+    }
+	
     register(user: User) {		
         return this.http.post(`http://localhost:3000/addUser`, user);
     }
