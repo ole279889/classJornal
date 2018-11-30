@@ -3,9 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule }    from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-
-import { fakeBackendProvider } from './shared/helpers';
-
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
@@ -37,9 +34,7 @@ import { RegisterComponent } from './register';
         AuthenticationService,
         UserService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-        
-        fakeBackendProvider
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     ],
     bootstrap: [AppComponent]
 })

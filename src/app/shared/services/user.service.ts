@@ -21,8 +21,7 @@ export class UserService {
         return this.http.get(`http://localhost:3000/` + id);
     }
 
-    register(user: User) {
-		console.log(user);
+    register(user: User) {		
         return this.http.post(`http://localhost:3000/addUser`, user);
     }
 

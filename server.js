@@ -15,7 +15,17 @@ fs.readFile( __dirname + "/" + "backend-data/users.json", 'utf8', function (err,
   this._users = data;		  
 });
 
-app.get('/listUsers', function (req, res) {
+function maxUID() {  
+  var maxUid = 0;
+  for (var i = 0; i < this._users.length; i++) {
+    if(parseInt(this._users[i]) > maxUid){
+	  maxUid = parseInt(this._users[i]);
+	}
+  }
+  return (maxUid + 1).toString();;  
+}
+
+app.get('/listUsers', function (req, res) {	
   res.end( this._users );   
 })
 
@@ -28,7 +38,7 @@ app.get('/:id', function (req, res) {
 app.post('/addUser', function (req, res) {   
   users = JSON.parse( this._users );	  
   var user = {
-		  "id": "5",
+		  "id": maxUID(),
           "username" : req.body.username,
           "password" : req.body.password,
 	      "firstName" : req.body.firstName,
@@ -36,7 +46,28 @@ app.post('/addUser', function (req, res) {
   }
   users.push(user);
   this._users = JSON.stringify(users);	  
-  res.end( JSON.stringify(users));   
+  res.end(JSON.stringify(users));   
+})
+
+app.post('/authenticate', function (req, res) {   
+  users = JSON.parse( this._users );
+  var filteredUsers = users.filter(user => {
+    return user.username === req.body.username && user.password === req.body.password;
+  });  
+  if (filteredUsers.length > 0) {
+    var user = filteredUsers[0]; 
+    var body = {
+		         id: user.id,
+                 username : user.username,
+                 password : user.password,
+	             firstName : user.firstName,
+	             lastName : user.lastName,
+                 token: "fake-jwt-token"		  
+               }  
+    res.end(JSON.stringify(body));
+  } else {
+    res.status(403).send("Authorization failed! Username or password is incorrect."); 
+  } 
 })
 
 app.delete('/deleteUser/:id', function (req, res) {
@@ -45,6 +76,11 @@ app.delete('/deleteUser/:id', function (req, res) {
   this._users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
 })
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
+});
 
 var server = app.listen(3000, function () {
    var host = server.address().address
