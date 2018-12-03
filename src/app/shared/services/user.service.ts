@@ -49,4 +49,11 @@ export class UserService {
   getLocal() {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];	
   }
+  
+  isAdmin() {	  
+	if (JSON.parse(localStorage.getItem('currentUser')).role === "admin") {
+		return true;
+	}  
+	return false;
+  }
 }

@@ -30,8 +30,26 @@
       "id": "4",
       "username"  : "3",
       "password"  : "333333",
-	  "firstName" : "ramesh",
-	  "lastName"  : "qeqeqe",
+	  "firstName" : "ggggg",
+	  "lastName"  : "ggggg",
+      "role"	  : "Ученик",
+	  "group"     : "1a"      
+   },   
+   {
+      "id": "5",
+      "username"  : "4",
+      "password"  : "444444",
+	  "firstName" : "hhhhh",
+	  "lastName"  : "hhhhh",
+      "role"	  : "Учитель",
+	  "group"     : ""      
+   },   
+   {
+      "id": "6",
+      "username"  : "5",
+      "password"  : "555555",
+	  "firstName" : "jjjjj",
+	  "lastName"  : "jjjjj",
       "role"	  : "Ученик",
 	  "group"     : "1a"      
    }

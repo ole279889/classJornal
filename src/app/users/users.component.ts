@@ -4,11 +4,16 @@ import { first } from 'rxjs/operators';
 import { User } from '../shared/models';
 import { UserService } from '../shared/services';
 
-@Component({templateUrl: 'users.component.html'})
+@Component({
+  styleUrls: ['users.component.css'],
+  templateUrl: 'users.component.html'
+})
 export class UsersComponent implements OnInit {
   currentUser: User;
   users: User[] = [];
 
+  displayedColumns: string[] = ['login', 'name', 'about', 'drop'];
+  
   constructor(private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }

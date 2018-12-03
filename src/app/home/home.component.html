@@ -1,10 +1,35 @@
+<a *ngIf="isAdmin()" [routerLink]="['/users']" class="btn btn-link">К списку пользователей</a>
+<h3>Здравствуйте, {{currentUser.firstName}} {{currentUser.lastName}}!</h3>
+<h4>Текущее расписание:</h4>
+<table mat-table [dataSource]="schedule" class="mat-elevation-z8">
+ 
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef> Дата </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.date}} </td>
+  </ng-container>
+ 
+  <ng-container matColumnDef="subject">
+    <th mat-header-cell *matHeaderCellDef> Предмет </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.subject}} </td>
+  </ng-container>
+ 
+  <ng-container matColumnDef="group">
+    <th mat-header-cell *matHeaderCellDef> Класс </th>
+    <td mat-cell *matCellDef="let lesson"> {{lesson.group}} </td>
+  </ng-container>
+ 
+  <ng-container matColumnDef="teacher">
+    <th mat-header-cell *matHeaderCellDef> Учитель </th>
+    <td mat-cell *matCellDef="let lesson"> {{this.getFIO(lesson.teacherId)}} </td>
+  </ng-container>
+    
+  <ng-container matColumnDef="drop">
+    <th mat-header-cell *matHeaderCellDef></th>
+    <td mat-cell *matCellDef="let lesson"><a *ngIf="isMyLesson(lesson.teacherId)" (click)="deleteLesson(lesson.id)" class="text-danger">Удалить</a></td>
+  </ng-container>
 
-<h1>Здравствуйте, {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
-<h3>Текущее расписание:</h3>
-<ul>
-  <li *ngFor="let lesson of schedule">
-    {{lesson.date}} {{lesson.subject}} {{lesson.group}} {{this.getFIO(lesson.teacherId)}}
-    - <a (click)="deleteLesson(lesson.id)" class="text-danger">Удалить</a>
-  </li>
-</ul>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<p></p>
 <p><a [routerLink]="['/login']">Выйти</a></p>

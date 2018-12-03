@@ -33,5 +33,19 @@
       "subject"   : "История",
 	  "group"     : "1а",
 	  "teacherId" : "3"      
+   },   
+   {
+      "id"        : "6",
+      "date"      : "13.12.2012",
+      "subject"   : "Математика",
+	  "group"     : "1а",
+	  "teacherId" : "5"      
+   },   
+   {
+      "id"        : "7",
+      "date"      : "13.12.2012",
+      "subject"   : "История",
+	  "group"     : "1а",
+	  "teacherId" : "5"      
    }
 ]

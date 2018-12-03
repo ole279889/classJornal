@@ -5,12 +5,17 @@ import { User } from '../shared/models';
 import { Lesson } from '../shared/models';
 import { UserService, ScheduleService } from '../shared/services';
 
-@Component({templateUrl: 'home.component.html'})
+@Component({
+  styleUrls: ['home.component.css'],
+  templateUrl: 'home.component.html'
+})
 export class HomeComponent implements OnInit {
   currentUser: User;
   users: User[] = [];
   schedule: Lesson[] = []
 
+  displayedColumns: string[] = ['date', 'subject', 'group', 'teacher', 'drop'];
+    
   constructor(private userService: UserService, private scheduleService: ScheduleService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
@@ -23,6 +28,14 @@ export class HomeComponent implements OnInit {
     /*this.scheduleService.delete(id).pipe(first()).subscribe(() => { 
         this.loadSchedule() 
     });*/
+  }
+  
+  isAdmin() {
+	return this.userService.isAdmin();
+  }
+  
+  isMyLesson(id: number) {
+	return this.scheduleService.isMyLesson(id);
   }
   
   private getFIO(id: number) {		

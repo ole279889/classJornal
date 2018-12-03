@@ -31,4 +31,14 @@ export class ScheduleService {
     /*delete(id: number) {
         return this.http.delete('http://localhost:3000/deleteLesson/' + id);
     }*/
+  isMyLesson(id: number) {
+	var user = JSON.parse(localStorage.getItem('currentUser'));  
+	if (user.role === "admin") {
+		return true;
+	}  
+	if (user.id === id) {
+		return true;
+	}
+	return false;
+  }
 }

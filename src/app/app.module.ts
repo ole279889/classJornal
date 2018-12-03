@@ -14,12 +14,14 @@ import { HomeComponent } from './home';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+	MatTableModule,
     routing
   ],
   declarations: [
