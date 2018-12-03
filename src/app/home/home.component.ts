@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   }
   
   private getFIO(id: number) {		
-    return this.userService.getFIO(id);//this.userService.getFIO(id);
+    return this.userService.getFIO(id);
   }
   
   private loadSchedule() {		

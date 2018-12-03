@@ -5,15 +5,15 @@ import {HttpClient, HttpEvent, HttpRequest, HttpXhrBackend} from '@angular/commo
 import {catchError, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 
-import { Lesson } from '../models';
+import { Mark } from '../models';
 
 @Injectable()
-export class ScheduleService {
+export class MarksService {
 			
   constructor(private http: HttpClient) { }
 
   getAll() {	
-    return this.http.get('http://localhost:3000/schedule', {responseType: 'json'});
+    return this.http.get('http://localhost:3000/listMarks', {responseType: 'json'});
   }
 
     /*getById(id: number) {

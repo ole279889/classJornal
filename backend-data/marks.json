@@ -1,0 +1,30 @@
+[
+   {
+      "id"        : "1",
+      "lessonId"  : "1",
+	  "teacherId" : "3",
+      "studentId" : "2",
+      "mark"      : "4"	  
+   },
+   {
+      "id"        : "2",
+      "lessonId"  : "1",
+	  "teacherId" : "3",
+      "studentId" : "2",
+      "mark"      : "5"	        
+   },     
+   {
+      "id"        : "4",
+      "lessonId"  : "5",
+	  "teacherId" : "3",    ,
+      "studentId" : "4",
+      "mark"      : "3"
+   },   
+   {
+      "id"        : "5",
+      "lessonId"  : "5",
+	  "teacherId" : "3",  
+      "studentId" : "4",
+      "mark"      : "4"
+   }
+]

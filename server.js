@@ -20,6 +20,11 @@ fs.readFile( __dirname + "/" + "backend-data/schedule.json", 'utf8', function (e
   this._schedule = data;		  
 });
 
+var _marks = [];
+fs.readFile( __dirname + "/" + "backend-data/marks.json", 'utf8', function (err, data) {
+  this._marks = data;		  
+});
+
 function maxUID() {  
   var maxUid = 0;
   for (var i = 0; i < this._users.length; i++) {
@@ -43,7 +48,11 @@ app.get('/subjects', function (req, res) {
   });  
 });
 //------------------------subjects----------------------------
-//------------------------users&schedule-----------------------------
+//------------------------users&schedule&marks-----------------------------
+app.get('/listMarks', function (req, res) {
+  res.end( this._marks );   
+});
+
 app.get('/listUsers', function (req, res) {
   res.end( this._users );   
 });
@@ -103,7 +112,7 @@ app.delete('/deleteUser/:id', function (req, res) {
   this._users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
 });
-//------------------------users-----------------------------
+//------------------------&marks-----------------------------
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');

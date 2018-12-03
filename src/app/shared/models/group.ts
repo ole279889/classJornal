@@ -1,1 +1,3 @@
-export class Group { group   : string; }
+export class Group { 
+  group: string; 
+}

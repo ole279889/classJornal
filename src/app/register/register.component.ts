@@ -14,11 +14,11 @@ export class RegisterComponent implements OnInit {
   groups: Group[] = [];
 
   constructor(
-      private formBuilder: FormBuilder,
-      private router: Router,
-      private userService: UserService,
-	  private groupsService: GroupsService,
-      private alertService: AlertService) { }
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+	private groupsService: GroupsService,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.groupsService.getAll().pipe(first()).subscribe((_groups : Group[]) => {             
