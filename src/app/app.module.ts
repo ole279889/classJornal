@@ -14,6 +14,7 @@ import { HomeComponent } from './home';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
+import { MarksComponent } from './marks';
 import {MatTableModule} from '@angular/material/table';
 
 @NgModule({
@@ -30,7 +31,8 @@ import {MatTableModule} from '@angular/material/table';
     HomeComponent,
 	UsersComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+	MarksComponent
   ],
   providers: [
     AuthGuard,

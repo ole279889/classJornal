@@ -67,6 +67,14 @@ app.get('/:id', function (req, res) {
   res.end(JSON.stringify(user));   
 });
 
+app.get('/marksByLessonID/:id', function (req, res) {  
+  var marks = JSON.parse(this._marks); 
+  var filteredMarks = marks.filter(mark => {
+    return mark.lessonId === req.params.id;
+  });    
+  res.end(JSON.stringify(filteredMarks));   
+});
+
 app.post('/addUser', function (req, res) {   
   users = JSON.parse( this._users );	  
   var user = {
