@@ -15,7 +15,7 @@
 	  "firstName" : "mahesh",
 	  "lastName"  : "dfggfdg",
       "role"	  : "Ученик",
-	  "group"     : "1a"       
+	  "group"     : "1а"       
    },   
    {
       "id": "3",
@@ -33,7 +33,7 @@
 	  "firstName" : "ggggg",
 	  "lastName"  : "ggggg",
       "role"	  : "Ученик",
-	  "group"     : "1a"      
+	  "group"     : "1а"      
    },   
    {
       "id": "5",
@@ -51,6 +51,6 @@
 	  "firstName" : "jjjjj",
 	  "lastName"  : "jjjjj",
       "role"	  : "Ученик",
-	  "group"     : "1a"      
+	  "group"     : "1а"      
    }
 ]

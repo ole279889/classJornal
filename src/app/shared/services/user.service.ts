@@ -64,13 +64,17 @@ export class UserService {
 	return false;
   }
   
-  usersByGroup(group: string){
+  isStudent() {	  
+	if (JSON.parse(localStorage.getItem('currentUser')).role === "Ученик") {
+		return true;
+	}  
+	return false;
+  }
+  
+  usersByGroup(group: string){	
 	var filteredUsers = this._users.filter(user => {
-      return user.group === group;
-    });  
-	console.log("filteredUsers");
-	console.log(filteredUsers);
-	console.log("filteredUsers");
+		return user.group === group;
+    });	
 	return filteredUsers;
   }
 }

@@ -12,24 +12,24 @@ var fs = require("fs");
 
 var _users = [];
 fs.readFile( __dirname + "/" + "backend-data/users.json", 'utf8', function (err, data) {
-  this._users = data;		  
+  _users = data;		  
 });
 
 var _schedule = [];
 fs.readFile( __dirname + "/" + "backend-data/schedule.json", 'utf8', function (err, data) {
-  this._schedule = data;		  
+  _schedule = data;		  
 });
 
 var _marks = [];
 fs.readFile( __dirname + "/" + "backend-data/marks.json", 'utf8', function (err, data) {
-  this._marks = data;		  
+  _marks = data;		  
 });
 
 function maxUID() {  
   var maxUid = 0;
-  for (var i = 0; i < this._users.length; i++) {
-    if(parseInt(this._users[i]) > maxUid){
-	  maxUid = parseInt(this._users[i]);
+  for (var i = 0; i < _users.length; i++) {
+    if(parseInt(_users[i]) > maxUid){
+	  maxUid = parseInt(_users[i]);
 	}
   }
   return (maxUid + 1).toString();;  
@@ -48,31 +48,31 @@ app.get('/subjects', function (req, res) {
 });
 
 app.get('/listMarks', function (req, res) {
-  res.end( this._marks );   
+  res.end( _marks );   
 });
 
 app.get('/listUsers', function (req, res) {
-  res.end( this._users );   
+  res.end( _users );   
 });
 
 app.get('/schedule', function (req, res) {	
-  res.end( this._schedule );   
+  res.end( _schedule );   
 });
 
 app.get('/:id', function (req, res) {
-  var users = JSON.parse(this._users);  
+  var users = JSON.parse(_users);  
   var user = users.find((user,i) => user.id === req.params.id);
   res.end(JSON.stringify(user));   
 });
 
 app.get('/lesson/:id', function (req, res) {
-  var schedule = JSON.parse(this._schedule);  
+  var schedule = JSON.parse(_schedule);  
   var lesson = schedule.find((lesson,i) => lesson.id === req.params.id);
   res.end(JSON.stringify(lesson));   
 });
 
 app.get('/marksByLessonID/:id', function (req, res) {  
-  var marks = JSON.parse(this._marks); 
+  var marks = JSON.parse(_marks); 
   var filteredMarks = marks.filter(mark => {
     return mark.lessonId === req.params.id;
   });    
@@ -80,7 +80,7 @@ app.get('/marksByLessonID/:id', function (req, res) {
 });
 
 app.post('/addUser', function (req, res) {   
-  users = JSON.parse( this._users );	  
+  users = JSON.parse( _users );	  
   var user = {
 		  "id": maxUID(),
           "username"  : req.body.username,
@@ -91,12 +91,12 @@ app.post('/addUser', function (req, res) {
 	      "group"     : req.body.group		  
   }
   users.push(user);
-  this._users = JSON.stringify(users);	  
+  _users = JSON.stringify(users);	  
   res.end(JSON.stringify(users));   
 });
 
 app.post('/authenticate', function (req, res) {   
-  users = JSON.parse( this._users );
+  users = JSON.parse( _users );
   var filteredUsers = users.filter(user => {
     return user.username === req.body.username && user.password === req.body.password;
   });  
@@ -119,9 +119,9 @@ app.post('/authenticate', function (req, res) {
 });
 
 app.delete('/deleteUser/:id', function (req, res) {
-  var users = JSON.parse(this._users);
+  var users = JSON.parse(_users);
   users.splice(users.findIndex((item) => item.id === req.params.id), 1);	  
-  this._users = JSON.stringify(users);      
+  _users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
 });
 

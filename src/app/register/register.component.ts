@@ -12,6 +12,7 @@ export class RegisterComponent implements OnInit {
   loading = false;
   submitted = false;
   groups: Group[] = [];
+  groupIsEmpty: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,7 +30,7 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       role: ['', Validators.required],
-	  group: ['', Validators.required],
+	  group: [''],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -38,11 +39,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+	((this.registerForm.value.role === "Ученик")&&(this.registerForm.value.group === "")) ? this.groupIsEmpty = true : this.groupIsEmpty = false;
       
-    if (this.registerForm.invalid) {
+    if ((this.registerForm.invalid)||this.groupIsEmpty) {		
       return;
     }
-
+	
     this.loading = true;		
       this.userService.register(this.registerForm.value)
         .pipe(first())

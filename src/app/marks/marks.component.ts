@@ -27,8 +27,7 @@ export class MarksComponent implements OnInit {
     this.loadMarks();	
   }
   
-  private loadMarks() {	
-    //this.marks = this.marksService.getClassMarks(Number(this.route.snapshot.params.id), this.userService.usersByGroup(this.lessonInfo.group));
+  private loadMarks() {		
     this.marksService.getByID(Number(this.route.snapshot.params.id)).pipe(first()).subscribe((_marks : Mark[]) => {             
 	  this.marks = _marks; 	  			
     });

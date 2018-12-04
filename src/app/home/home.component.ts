@@ -13,16 +13,20 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class HomeComponent implements OnInit {
   currentUser: User;
   users: User[] = [];
-  schedule: Lesson[] = []
-
-  displayedColumns: string[] = ['date', 'subject', 'group', 'teacher', 'marks', 'edit', 'drop'];
-    
+  schedule: Lesson[] = [];
+  displayedColumns: string[];
+ 
   constructor(private userService: UserService, private scheduleService: ScheduleService, private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   ngOnInit() {
     this.loadSchedule();
+	if (this.userService.isStudent() === true) {
+      this.displayedColumns = ['date', 'subject', 'group', 'teacher', 'marks'];
+    } else {
+	  this.displayedColumns = ['date', 'subject', 'group', 'teacher', 'marks', 'edit', 'drop'];
+    }
   }
 
   deleteLesson(id: number) {
@@ -32,10 +36,7 @@ export class HomeComponent implements OnInit {
   }
   
   gotoMarks(id: number) {
-	this.router.navigate(['/marks/' + id]);  
-    /*this.scheduleService.delete(id).pipe(first()).subscribe(() => { 
-        this.loadSchedule() 
-    });*/
+	this.router.navigate(['/marks/' + id]);    
   }
   
   isAdmin() {

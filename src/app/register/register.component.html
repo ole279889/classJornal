@@ -23,23 +23,23 @@
     </div>
 	<div class="form-group">
         <label for="role">Роль в учебном процессе</label>       
-        <select formControlName="role" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" >
+        <select formControlName="role" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.role.errors }" >
           <option>Ученик</option>
           <option>Учитель</option>
         </select>
-		<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+		<div *ngIf="submitted && f.role.errors" class="invalid-feedback">
             <div *ngIf="f.role.errors.required">Роль обязательна к заполнению!</div>
         </div>
     </div>
-	<div class="form-group">
+	<div class="form-group" *ngIf="this.registerForm.value.role === 'Ученик'">
         <label for="group">Класс</label>       
-        <select formControlName="group" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" >
+        <select formControlName="group" class="form-control" [ngClass]="{ 'is-invalid': submitted && groupIsEmpty }" >
           <option *ngFor="let group of groups" [ngValue]="group.group">
             {{ group.group }}
           </option>
         </select>
-		<div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.group.errors.required">Класс обязателен к заполнению!</div>
+		<div *ngIf="submitted && groupIsEmpty" class="invalid-feedback">
+            <div *ngIf="groupIsEmpty">Класс обязателен к заполнению!</div>
         </div>
     </div>
     <div class="form-group">
