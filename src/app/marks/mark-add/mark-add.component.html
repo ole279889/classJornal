@@ -1,0 +1,46 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Добавление оценки</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="addMarkForm" (ngSubmit)="onSubmit()">
+	
+    <div class="form-group">
+        <label for="studentId">Ученик</label>
+        <select formControlName="studentId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.studentId.errors }" >
+          <option *ngFor="let student of students" [ngValue]="student.id">
+            {{ student.firstName + " " + student.lastName }}
+          </option>		          
+        </select>
+		<div *ngIf="submitted && f.studentId.errors" class="invalid-feedback">
+            <div *ngIf="f.studentId.errors.required">Оценка обязательна к заполнению!</div>
+        </div>
+    </div>
+	
+    <div class="form-group">
+        <label for="mark">Оценка</label>
+        <select formControlName="mark" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mark.errors }" >
+          <option value="2">Неудовлетворительно</option>
+          <option value="3">Удовлетворительно</option>
+		  <option value="4">Хорошо</option>
+          <option value="5">Отлично</option>		          
+        </select>
+		<div *ngIf="submitted && f.mark.errors" class="invalid-feedback">
+            <div *ngIf="f.mark.errors.required">Оценка обязательна к заполнению!</div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">Добавить</button>
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Отмена</button>
+    </div>
+</form>
+  </div>  
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Добавить оценку</button>
+
+<hr>

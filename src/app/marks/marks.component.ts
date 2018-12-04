@@ -36,6 +36,7 @@ export class MarksComponent implements OnInit {
   private getLessonInfo() {    
 	this.scheduleService.getByID(Number(this.route.snapshot.params.id)).pipe(first()).subscribe((_lesson : Lesson) => {             
 	  this.lessonInfo = _lesson;   
+	  localStorage.setItem('lessonInfo', JSON.stringify(_lesson));
     });	
   }
   
@@ -45,6 +46,10 @@ export class MarksComponent implements OnInit {
   
   isAdmin() {
 	return this.userService.isAdmin();
+  }
+  
+  markIns() {
+	this.loadMarks();
   }
     
 }

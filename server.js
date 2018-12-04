@@ -35,6 +35,16 @@ function maxUID() {
   return (maxUid + 1).toString();;  
 }
 
+function maxMarkID() {  
+  var maxMarkID = 0;
+  for (var i = 0; i < _marks.length; i++) {
+    if(parseInt(_marks[i]) > maxMarkID){
+	  maxMarkID = parseInt(_marks[i]);
+	}
+  }
+  return (maxMarkID + 1).toString();;  
+}
+
 app.get('/groups', function (req, res) {	
   fs.readFile( __dirname + "/" + "backend-data/groups.json", 'utf8', function (err, data) {    
     res.end( data );
@@ -93,6 +103,20 @@ app.post('/addUser', function (req, res) {
   users.push(user);
   _users = JSON.stringify(users);	  
   res.end(JSON.stringify(users));   
+});
+
+app.post('/addMark', function (req, res) {   
+  marks = JSON.parse( _marks );	  
+  var mark = {
+		  "id": maxMarkID(),
+          "lessonId"  : req.body.lessonId,
+          "teacherId"  : req.body.teacherId,
+	      "studentId" : req.body.studentId,
+	      "mark"  : req.body.mark		  
+  }
+  marks.push(mark);
+  _marks = JSON.stringify(marks);	  
+  res.end(JSON.stringify(marks));   
 });
 
 app.post('/authenticate', function (req, res) {   

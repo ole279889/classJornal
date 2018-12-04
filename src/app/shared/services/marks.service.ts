@@ -21,9 +21,9 @@ export class MarksService {
     return this.http.get(`http://localhost:3000/marksByLessonID/` + id);
   }
     
-    /*register(lesson: Lesson) {		
-        return this.http.post(`http://localhost:3000/addLesson`, lesson);
-    }*/
+  addMark(mark: Mark) {		
+    return this.http.post(`http://localhost:3000/addMark`, mark);
+  }
 
     /*update(user: User) {
         return this.http.put(`/users/` + user.id, user);
