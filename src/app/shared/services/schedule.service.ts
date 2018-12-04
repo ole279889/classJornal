@@ -16,11 +16,11 @@ export class ScheduleService {
     return this.http.get('http://localhost:3000/schedule', {responseType: 'json'});
   }
 
-    /*getById(id: number) {
-        return this.http.get(`http://localhost:3000/lesson/` + id);
-    }
+  getByID(id: number) {
+    return this.http.get(`http://localhost:3000/lesson/` + id);
+  }
 
-    register(lesson: Lesson) {		
+    /*register(lesson: Lesson) {		
         return this.http.post(`http://localhost:3000/addLesson`, lesson);
     }*/
 

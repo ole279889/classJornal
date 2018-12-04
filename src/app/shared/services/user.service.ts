@@ -8,10 +8,16 @@ const LOCAL_STORAGE_KEY = 'users';
 
 @Injectable()
 export class UserService {
-	
+  private _users: User[];  
   user: User;
-		
-  constructor(private http: HttpClient) { }
+  
+  get users(): User[] {
+    return this._users;
+  }
+  
+  constructor(private http: HttpClient) {
+    this._users = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+  }
 
   getAll() {	
 	return this.http.get('http://localhost:3000/listUsers', {responseType: 'json'});
@@ -44,6 +50,7 @@ export class UserService {
 	
   saveLocal(users : User[]) {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users));	
+	this._users = users;
   }
 	
   getLocal() {
@@ -55,5 +62,15 @@ export class UserService {
 		return true;
 	}  
 	return false;
+  }
+  
+  usersByGroup(group: string){
+	var filteredUsers = this._users.filter(user => {
+      return user.group === group;
+    });  
+	console.log("filteredUsers");
+	console.log(filteredUsers);
+	console.log("filteredUsers");
+	return filteredUsers;
   }
 }

@@ -34,21 +34,19 @@ function maxUID() {
   }
   return (maxUid + 1).toString();;  
 }
-//------------------------groups----------------------------
+
 app.get('/groups', function (req, res) {	
   fs.readFile( __dirname + "/" + "backend-data/groups.json", 'utf8', function (err, data) {    
     res.end( data );
   });  
 });
-//------------------------groups----------------------------
-//------------------------subjects----------------------------
+
 app.get('/subjects', function (req, res) {	
   fs.readFile( __dirname + "/" + "backend-data/subjects.json", 'utf8', function (err, data) {    
     res.end( data );
   });  
 });
-//------------------------subjects----------------------------
-//------------------------users&schedule&marks-----------------------------
+
 app.get('/listMarks', function (req, res) {
   res.end( this._marks );   
 });
@@ -65,6 +63,12 @@ app.get('/:id', function (req, res) {
   var users = JSON.parse(this._users);  
   var user = users.find((user,i) => user.id === req.params.id);
   res.end(JSON.stringify(user));   
+});
+
+app.get('/lesson/:id', function (req, res) {
+  var schedule = JSON.parse(this._schedule);  
+  var lesson = schedule.find((lesson,i) => lesson.id === req.params.id);
+  res.end(JSON.stringify(lesson));   
 });
 
 app.get('/marksByLessonID/:id', function (req, res) {  
@@ -120,7 +124,7 @@ app.delete('/deleteUser/:id', function (req, res) {
   this._users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
 });
-//------------------------&marks-----------------------------
+
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   res.status(500).send('Internal Server Error');

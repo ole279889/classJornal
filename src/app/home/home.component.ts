@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   users: User[] = [];
   schedule: Lesson[] = []
 
-  displayedColumns: string[] = ['date', 'subject', 'group', 'teacher', 'marks', 'drop'];
+  displayedColumns: string[] = ['date', 'subject', 'group', 'teacher', 'marks', 'edit', 'drop'];
     
   constructor(private userService: UserService, private scheduleService: ScheduleService, private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

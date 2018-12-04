@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
   currentUser: User;
   users: User[] = [];
 
-  displayedColumns: string[] = ['login', 'name', 'about', 'drop'];
+  displayedColumns: string[] = ['login', 'name', 'about', 'edit', 'drop'];
   
   constructor(private userService: UserService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
