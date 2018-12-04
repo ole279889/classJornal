@@ -17,7 +17,7 @@ export class MarkAddComponent {
   closeResult: string;  
   @Input() students: User[] = [];
   @Output() markIns: EventEmitter<boolean> = new EventEmitter();
-  @Input() lessonInfo: Lesson = [];
+  @Input() lessonInfo: Lesson;
   modalReference: any;
   users: User[];
 

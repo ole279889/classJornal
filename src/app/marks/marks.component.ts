@@ -13,7 +13,7 @@ import { UserService, ScheduleService, MarksService } from '../shared/services';
 })
 export class MarksComponent implements OnInit {
   currentUser: User;
-  lessonInfo: Lesson = [];
+  lessonInfo: Lesson = new Lesson;
   students: User[] = [];
   marks: Mark[];
    
