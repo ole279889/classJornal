@@ -13,10 +13,11 @@ import { UserService, ScheduleService, MarksService } from '../shared/services';
 })
 export class MarksComponent implements OnInit {
   currentUser: User;
-  lessonInfo: Lesson = new Lesson;
+  lessonInfo: Lesson = [];
+  students: User[] = [];
   marks: Mark[];
- 
-  displayedColumns: string[] = ['student', 'mark', 'edit'];
+   
+  displayedColumns: string[] = ['student', 'mark', 'edit', 'drop'];
     
   constructor(private userService: UserService, private scheduleService: ScheduleService, private marksService: MarksService, private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -35,8 +36,8 @@ export class MarksComponent implements OnInit {
   
   private getLessonInfo() {    
 	this.scheduleService.getByID(Number(this.route.snapshot.params.id)).pipe(first()).subscribe((_lesson : Lesson) => {             
-	  this.lessonInfo = _lesson;   
-	  localStorage.setItem('lessonInfo', JSON.stringify(_lesson));
+	  this.lessonInfo = _lesson;   	
+      this.students = this.userService.usersByGroup(this.lessonInfo.group);  	  
     });	
   }
   

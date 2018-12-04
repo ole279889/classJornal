@@ -14,11 +14,12 @@ export class MarkAddComponent {
   addMarkForm: FormGroup;
   loading = false;
   submitted = false;
-  closeResult: string;
-  lessonInfo: Lesson = new Lesson;
-  students: User[] = [];
+  closeResult: string;  
+  @Input() students: User[] = [];
   @Output() markIns: EventEmitter<boolean> = new EventEmitter();
+  @Input() lessonInfo: Lesson = [];
   modalReference: any;
+  users: User[];
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -29,14 +30,13 @@ export class MarkAddComponent {
   ) {}
   
   ngOnInit() {
-	this.lessonInfo = JSON.parse(localStorage.getItem('lessonInfo')); 	
-	this.students = this.userService.usersByGroup(this.lessonInfo.group);	
+	this.users = this.userService.users;  		
     this.addMarkForm = this.formBuilder.group({
       studentId: ['', Validators.required],
       mark: ['', Validators.required],
     });
   }
-  
+   
   open(content) {
     this.modalReference = this.modalService.open(content, { centered: true })
   }
@@ -44,7 +44,7 @@ export class MarkAddComponent {
   get f() { return this.addMarkForm.controls; }
 
   onSubmit() {
-      
+    
     if (this.addMarkForm.invalid) {		
       return;
     }

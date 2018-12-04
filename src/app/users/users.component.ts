@@ -25,14 +25,12 @@ export class UsersComponent implements OnInit {
   deleteUser(id: number) {
     this.userService.delete(id).pipe(first()).subscribe((_users : User[]) => { 
       this.users = _users; 
-	  this.userService.saveLocal(_users);
+	  this.userService.refreshUsers();
     });
   }
 
   private loadAllUsers() {		
-    this.userService.getAll().pipe(first()).subscribe((_users : User[]) => {             
-	  this.users = _users; 
-	  this.userService.saveLocal(_users);			
-    });
+    this.userService.refreshUsers()             
+	this.users = this.userService.users;	  
   }
 }

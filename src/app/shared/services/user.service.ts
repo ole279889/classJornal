@@ -3,6 +3,7 @@ import {BehaviorSubject} from 'rxjs';
 import {HttpClient, HttpEvent, HttpRequest, HttpXhrBackend} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import { first } from 'rxjs/operators';
 import { User } from '../models';
 const LOCAL_STORAGE_KEY = 'users';
 
@@ -15,8 +16,10 @@ export class UserService {
     return this._users;
   }
   
-  constructor(private http: HttpClient) {
-    this._users = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || [];
+  constructor(private http: HttpClient) {}
+  
+  ngOnInit() {
+	this.refreshUsers();    
   }
 
   getAll() {	
@@ -47,10 +50,16 @@ export class UserService {
   delete(id: number) {
     return this.http.delete('http://localhost:3000/deleteUser/' + id);
   }
-	
+  
+  refreshUsers() {
+	this.getAll().pipe(first()).subscribe((users : User[]) => {             
+	    this._users = users; 
+	    this.saveLocal(users);			
+    });
+  }
+  
   saveLocal(users : User[]) {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users));	
-	this._users = users;
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users));		
   }
 	
   getLocal() {
@@ -72,7 +81,8 @@ export class UserService {
   }
   
   usersByGroup(group: string){	
-	var filteredUsers = this._users.filter(user => {
+    //console.log(this.getLocal());
+	var filteredUsers = this.getLocal().filter(user => {
 		return user.group === group;
     });	
 	return filteredUsers;
