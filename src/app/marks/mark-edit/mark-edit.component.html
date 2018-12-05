@@ -1,0 +1,39 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Изменение оценки</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <form [formGroup]="editMarkForm" (ngSubmit)="onSubmit()">
+	
+      <div class="form-group">
+          <label for="studentId">Ученик</label>
+          {{ userService.getFIO(mark.studentId) }}  
+      </div>
+	
+      <div class="form-group">
+          <label for="mark">Оценка</label>
+          <select formControlName="mark" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mark.errors }" >
+            <option value="2">Неудовлетворительно</option>
+            <option value="3" >Удовлетворительно</option>
+		    <option value="4">Хорошо</option>
+            <option value="5">Отлично</option>		          
+          </select>
+		  <div *ngIf="submitted && f.mark.errors"  class="invalid-feedback">
+            <div *ngIf="f.mark.errors.required">Оценка обязательна к заполнению!</div>
+          </div>
+      </div>
+    
+      <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">Сохранить</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Отмена</button>
+      </div>
+    </form>
+  </div> 
+</ng-template>
+
+<!--button class="btn btn-lg btn-outline-primary" (click)="open(content)">Добавить оценку</button-->
+<button type="button" class="btn btn-default" (click)="open(content)"><img src="./src/app/shared/assets/edit.png" width="25"/></button>

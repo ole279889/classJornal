@@ -4,19 +4,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Lesson } from '../../shared/models';
 import { User } from '../../shared/models';
+import { Mark } from '../../shared/models';
 import { UserService, MarksService, AlertService } from '../../shared/services';
 
 @Component({
-  selector: 'mark-add',
-  templateUrl: './mark-add.component.html'
+  selector: 'mark-edit',
+  templateUrl: './mark-edit.component.html'
 })
-export class MarkAddComponent {
-  addMarkForm: FormGroup;
+export class MarkEditComponent {
+  editMarkForm: FormGroup;
   loading = false;
   submitted = false;  
-  @Input() students: User[] = [];
-  @Output() markIns: EventEmitter<boolean> = new EventEmitter();
-  @Input() lessonInfo: Lesson;
+  @Input() mark: Mark;
+  @Output() markIns: EventEmitter<boolean> = new EventEmitter();  
   modalReference: any;
   users: User[];
 
@@ -30,9 +30,8 @@ export class MarkAddComponent {
   
   ngOnInit() {
 	this.users = this.userService.users;  		
-    this.addMarkForm = this.formBuilder.group({
-      studentId: ['', Validators.required],
-      mark: ['', Validators.required],
+    this.editMarkForm = this.formBuilder.group({      
+      mark: [this.mark.mark, Validators.required],
     });
   }
    
@@ -40,30 +39,30 @@ export class MarkAddComponent {
     this.modalReference = this.modalService.open(content, { centered: true })
   }
      
-  get f() { return this.addMarkForm.controls; }
+  get f() { return this.editMarkForm.controls; }
 
   onSubmit() {
     
-    if (this.addMarkForm.invalid) {		
+    if (this.editMarkForm.invalid) {		
       return;
     }
 	
     this.loading = true;		
 	
 	var _mark = {       
-      id: null,
-      lessonId: this.lessonInfo.id,
-      teacherId: this.lessonInfo.teacherId,
-      studentId: this.addMarkForm.value.studentId,  
-      mark: this.addMarkForm.value.mark,
+      id: this.mark.id,
+      lessonId: this.mark.lessonId,
+      teacherId: this.mark.teacherId,
+      studentId: this.mark.studentId,  
+      mark: this.editMarkForm.value.mark,
     }
 	
-    this.markService.addMark(_mark)
+    this.markService.update(_mark)
       .pipe(first())
       .subscribe(
         data => {
 		  this.markIns.emit(true); 
-		  this.addMarkForm.reset();
+		  this.editMarkForm.reset();
           this.modalReference.close();
 		  this.loading = false;
         },

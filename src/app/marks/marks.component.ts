@@ -16,8 +16,9 @@ export class MarksComponent implements OnInit {
   lessonInfo: Lesson = new Lesson;
   students: User[] = [];
   marks: Mark[];
+  displayedColumns: string[];
    
-  displayedColumns: string[] = ['student', 'mark', 'edit', 'drop'];
+  //displayedColumns: string[] = ['student', 'mark', 'edit', 'drop'];
     
   constructor(private userService: UserService, private scheduleService: ScheduleService, private marksService: MarksService, private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -26,6 +27,11 @@ export class MarksComponent implements OnInit {
   ngOnInit() {
 	this.getLessonInfo(); 
     this.loadMarks();	
+	if (this.userService.isStudent() === true) {
+      this.displayedColumns = ['student', 'mark'];
+    } else {
+	  this.displayedColumns = ['student', 'mark', 'edit', 'drop'];
+    }
   }
   
   private loadMarks() {		
@@ -39,6 +45,12 @@ export class MarksComponent implements OnInit {
 	  this.lessonInfo = _lesson;   	
       this.students = this.userService.usersByGroup(this.lessonInfo.group);  	  
     });	
+  }
+  
+  deleteMark(id: number) {
+    this.marksService.delete(id).pipe(first()).subscribe((_marks : Mark[]) => { 
+      this.loadMarks();	  
+    });
   }
   
   private getFIO(id: number) {		

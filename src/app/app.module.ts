@@ -16,6 +16,7 @@ import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 import { MarksComponent } from './marks';
 import { MarkAddComponent } from './marks/mark-add/mark-add.component';
+import { MarkEditComponent } from './marks/mark-edit/mark-edit.component';
 import {MatTableModule} from '@angular/material/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -36,7 +37,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     RegisterComponent,
 	MarksComponent,
-	MarkAddComponent
+	MarkAddComponent,
+	MarkEditComponent
   ],
   providers: [
     AuthGuard,

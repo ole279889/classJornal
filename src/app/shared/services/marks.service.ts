@@ -25,11 +25,11 @@ export class MarksService {
     return this.http.post(`http://localhost:3000/addMark`, mark);
   }
 
-    /*update(user: User) {
-        return this.http.put(`/users/` + user.id, user);
-    }*/
+  update(mark: Mark) {
+        return this.http.put(`http://localhost:3000/marks/` + mark.id, mark);
+  }
 
-    /*delete(id: number) {
-        return this.http.delete('http://localhost:3000/deleteLesson/' + id);
-    }*/
+  delete(id: number) {
+    return this.http.delete('http://localhost:3000/deleteMark/' + id);
+  }
 }

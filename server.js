@@ -142,11 +142,29 @@ app.post('/authenticate', function (req, res) {
   } 
 });
 
+app.put('/marks/:id', function (req, res) {   
+  marks = JSON.parse( _marks );  
+  for (var i = 0; i < marks.length; i++) {
+    if(marks[i].id === req.params.id){
+	  marks[i] = req.body;	  
+	}
+  }
+  _marks = JSON.stringify(marks)  
+  res.end(_marks);   
+});
+
 app.delete('/deleteUser/:id', function (req, res) {
   var users = JSON.parse(_users);
   users.splice(users.findIndex((item) => item.id === req.params.id), 1);	  
   _users = JSON.stringify(users);      
   res.end( JSON.stringify(users));   
+});
+
+app.delete('/deleteMark/:id', function (req, res) {
+  var marks = JSON.parse(_marks);
+  marks.splice(marks.findIndex((item) => item.id === req.params.id), 1);	  
+  _marks = JSON.stringify(marks);      
+  res.end( JSON.stringify(marks));   
 });
 
 app.use(function(err, req, res, next) {
