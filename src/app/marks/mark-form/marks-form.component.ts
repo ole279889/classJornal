@@ -1,24 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { User } from '../shared/models';
-import { Lesson } from '../shared/models';
-import { Mark } from '../shared/models';
+import { User } from '../../shared/models';
+import { Lesson } from '../../shared/models';
+import { Mark } from '../../shared/models';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import { UserService, ScheduleService, MarksService } from '../shared/services';
+import { UserService, ScheduleService, MarksService } from '../../shared/services';
 
 @Component({
-  styleUrls: ['marks.component.css'],
-  templateUrl: 'marks.component.html'
+  styleUrls: ['marks-form.component.css'],
+  templateUrl: 'marks-form.component.html'
 })
-export class MarksComponent implements OnInit {
+export class MarksFormComponent implements OnInit {
   currentUser: User;
   lessonInfo: Lesson = new Lesson;
   students: User[] = [];
   marks: Mark[];
   displayedColumns: string[];
-   
-  //displayedColumns: string[] = ['student', 'mark', 'edit', 'drop'];
     
   constructor(private userService: UserService, private scheduleService: ScheduleService, private marksService: MarksService, private router: Router, private route: ActivatedRoute) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -43,7 +41,7 @@ export class MarksComponent implements OnInit {
   private getLessonInfo() {    
 	this.scheduleService.getByID(Number(this.route.snapshot.params.id)).pipe(first()).subscribe((_lesson : Lesson) => {             
 	  this.lessonInfo = _lesson;   	
-      this.students = this.userService.usersByGroup(this.lessonInfo.group);  	  
+      this.students = this.userService.usersByGroup(this.lessonInfo.group);	  
     });	
   }
   

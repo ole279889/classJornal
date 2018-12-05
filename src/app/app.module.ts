@@ -14,9 +14,9 @@ import { HomeComponent } from './home';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { MarksComponent } from './marks';
-import { MarkAddComponent } from './marks/mark-add/mark-add.component';
-import { MarkEditComponent } from './marks/mark-edit/mark-edit.component';
+import { MarksFormComponent } from './marks';
+import { MarkAddComponent } from './marks';
+import { MarkEditComponent } from './marks';
 import {MatTableModule} from '@angular/material/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -36,7 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 	UsersComponent,
     LoginComponent,
     RegisterComponent,
-	MarksComponent,
+	MarksFormComponent,
 	MarkAddComponent,
 	MarkEditComponent
   ],
