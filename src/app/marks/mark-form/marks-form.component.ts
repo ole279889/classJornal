@@ -4,7 +4,6 @@ import { User } from '../../shared/models';
 import { Lesson } from '../../shared/models';
 import { Mark } from '../../shared/models';
 import {ActivatedRoute, Router} from '@angular/router';
-
 import { UserService, ScheduleService, MarksService } from '../../shared/services';
 
 @Component({

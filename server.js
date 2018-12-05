@@ -177,6 +177,17 @@ app.put('/marks/:id', function (req, res) {
   res.end(_marks);   
 });
 
+app.put('/schedule/:id', function (req, res) {   
+  schedule = JSON.parse( _schedule );  
+  for (var i = 0; i < schedule.length; i++) {
+    if(schedule[i].id === req.params.id){
+	  schedule[i] = req.body;	  
+	}
+  }
+  _schedule = JSON.stringify(schedule)    
+  res.end(_schedule);   
+});
+
 app.delete('/deleteUser/:id', function (req, res) {
   var users = JSON.parse(_users);
   users.splice(users.findIndex((item) => item.id === req.params.id), 1);	  

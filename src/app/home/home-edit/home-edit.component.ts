@@ -6,14 +6,15 @@ import { Lesson, Subject, User, Group } from '../../shared/models';
 import { UserService, ScheduleService, AlertService, GroupsService, SubjectsService } from '../../shared/services';
 
 @Component({
-  selector: 'home-add',
-  templateUrl: './home-add.component.html'
+  selector: 'home-edit',
+  templateUrl: './home-edit.component.html'
 })
-export class HomeAddComponent {
-  addLessonForm: FormGroup;
+export class HomeEditComponent {
+  editLessonForm: FormGroup;
   loading = false;
   submitted = false;    
-  @Output() lessIns: EventEmitter<boolean> = new EventEmitter();  
+  @Output() lessIns: EventEmitter<boolean> = new EventEmitter(); 
+  @Input() lesson: Lesson;  
   modalReference: any;  
   groups: Group[] = [];
   teachers: User[] = [];
@@ -36,13 +37,13 @@ export class HomeAddComponent {
 	this.subjectsService.getAll().pipe(first()).subscribe((_subjects : Subject[]) => {             
 	  this.subjects = _subjects; 			
     }); 
-	this.teachers = this.userService.getTeachers();	
+	this.teachers = this.userService.getTeachers();	  
 	
-    this.addLessonForm = this.formBuilder.group({
-      date: ['', Validators.required],
-      subject: ['', Validators.required],
-	  group: ['', Validators.required],
-	  teacherId: [{value: JSON.parse(localStorage.getItem('currentUser')).id, disabled: !(this.userService.isAdmin())}, Validators.required],
+    this.editLessonForm = this.formBuilder.group({
+      date: [this.lesson.date, Validators.required],
+      subject: [this.lesson.subject, Validators.required],
+	  group: [this.lesson.group, Validators.required],
+	  teacherId: [{value: this.lesson.teacherId, disabled: !(this.userService.isAdmin())}, Validators.required],
     });
   }
    
@@ -50,33 +51,29 @@ export class HomeAddComponent {
     this.modalReference = this.modalService.open(content, { centered: true })
   }
      
-  get f() { return this.addLessonForm.controls; }
+  get f() { return this.editLessonForm.controls; }
 
   onSubmit() {
     
-    if (this.addLessonForm.invalid) {		
+    if (this.editLessonForm.invalid) {		
       return;
     }
 	
     this.loading = true;		
 	
 	var _lesson = {       
-      id: null,
-      date: this.addLessonForm.value.date,
-      subject: this.addLessonForm.value.subject,
-      group: this.addLessonForm.value.group,  
-      teacherId: this.userService.isAdmin() ? this.addLessonForm.value.teacherId : JSON.parse(localStorage.getItem('currentUser')).id,
+      id: this.lesson.id,
+      date: this.editLessonForm.value.date,
+      subject: this.editLessonForm.value.subject,
+      group: this.editLessonForm.value.group,  
+      teacherId: this.userService.isAdmin() ? this.editLessonForm.value.teacherId : this.lesson.teacherId,
     }
 	
-    this.scheduleService.addLesson(_lesson)
+    this.scheduleService.update(_lesson)
       .pipe(first())
       .subscribe(
         data => {
 		  this.lessIns.emit(true); 		  
-		  this.addLessonForm.controls.date.reset();
-		  this.addLessonForm.controls.subject.reset();
-		  this.addLessonForm.controls.group.reset();
-          if (this.userService.isAdmin()) { this.addLessonForm.controls.teacherId.reset() };		  
           this.modalReference.close();
 		  this.loading = false;
         },

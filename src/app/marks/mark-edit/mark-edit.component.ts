@@ -17,8 +17,7 @@ export class MarkEditComponent {
   submitted = false;  
   @Input() mark: Mark;
   @Output() markIns: EventEmitter<boolean> = new EventEmitter();  
-  modalReference: any;
-  users: User[];
+  modalReference: any;  
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -28,8 +27,7 @@ export class MarkEditComponent {
 	private alertService: AlertService
   ) {}
   
-  ngOnInit() {
-	this.users = this.userService.users;  		
+  ngOnInit() {	 		
     this.editMarkForm = this.formBuilder.group({      
       mark: [this.mark.mark, Validators.required],
     });

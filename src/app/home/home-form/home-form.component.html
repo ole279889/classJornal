@@ -30,7 +30,7 @@
   
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef>Изменить</th>
-    <td mat-cell *matCellDef="let lesson"><button *ngIf="isMyLesson(lesson.teacherId)" (click)="deleteLesson(lesson.id)" type="button" class="btn btn-default"><img src="./src/app/shared/assets/edit.png" width="25"/></button></td>
+    <td mat-cell *matCellDef="let lesson"><home-edit *ngIf="scheduleService.isMyLesson(lesson.teacherId)" [lesson] = "lesson" (lessIns)="lessIns($event)"></home-edit></td>
   </ng-container>
   
   <ng-container matColumnDef="drop">

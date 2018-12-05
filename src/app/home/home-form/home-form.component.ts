@@ -10,8 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   templateUrl: 'home-form.component.html'
 })
 export class HomeComponent implements OnInit {
-  currentUser: User;
-  users: User[] = [];
+  currentUser: User;  
   schedule: Lesson[] = [];
   displayedColumns: string[];
  

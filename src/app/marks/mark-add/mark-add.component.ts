@@ -17,19 +17,16 @@ export class MarkAddComponent {
   @Input() students: User[] = [];
   @Output() markIns: EventEmitter<boolean> = new EventEmitter();
   @Input() lessonInfo: Lesson;
-  modalReference: any;
-  users: User[];
+  modalReference: any;  
 
   constructor(
     private formBuilder: FormBuilder, 
-	private modalService: NgbModal, 
-	private userService: UserService, 
+	private modalService: NgbModal,	 
 	private markService: MarksService,
 	private alertService: AlertService
   ) {}
   
-  ngOnInit() {
-	this.users = this.userService.users;  		
+  ngOnInit() {	  		
     this.addMarkForm = this.formBuilder.group({
       studentId: ['', Validators.required],
       mark: ['', Validators.required],

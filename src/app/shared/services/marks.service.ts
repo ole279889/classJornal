@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
-
 import {BehaviorSubject} from 'rxjs';
 import {HttpClient, HttpEvent, HttpRequest, HttpXhrBackend} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-
 import { Mark } from '../models';
 import { User } from '../models';
 
@@ -26,7 +24,7 @@ export class MarksService {
   }
 
   update(mark: Mark) {
-        return this.http.put(`http://localhost:3000/marks/` + mark.id, mark);
+    return this.http.put(`http://localhost:3000/marks/` + mark.id, mark);
   }
 
   delete(id: number) {
