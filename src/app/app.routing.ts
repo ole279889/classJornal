@@ -1,5 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home';
+import { HomeComponent } from './home/home-form/home-form.component';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';

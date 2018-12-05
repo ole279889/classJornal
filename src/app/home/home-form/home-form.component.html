@@ -42,4 +42,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <p></p>
-<p><a [routerLink]="['/login']">Выйти</a></p>
+<p><home-add  *ngIf="!userService.isStudent()" (lessIns)="lessIns($event)"></home-add><p><a [routerLink]="['/login']">Выйти</a></p>

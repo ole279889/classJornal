@@ -10,7 +10,8 @@ import { AlertComponent } from './alert';
 import { AuthGuard } from './shared/guards';
 import { JwtInterceptor, ErrorInterceptor } from './shared/helpers';
 import { AlertService, AuthenticationService, UserService, GroupsService, SubjectsService, ScheduleService, MarksService } from './shared/services';
-import { HomeComponent } from './home';
+import { HomeComponent } from './home/home-form/home-form.component';
+import { HomeAddComponent } from './home/home-add/home-add.component';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
@@ -33,6 +34,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppComponent,
     AlertComponent,
     HomeComponent,
+	HomeAddComponent,
 	UsersComponent,
     LoginComponent,
     RegisterComponent,

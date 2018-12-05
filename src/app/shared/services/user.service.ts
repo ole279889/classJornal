@@ -80,10 +80,16 @@ export class UserService {
 	return false;
   }
   
-  usersByGroup(group: string){	
-    //console.log(this.getLocal());
+  usersByGroup(group: string){	    
 	var filteredUsers = this.getLocal().filter(user => {
 		return user.group === group;
+    });	
+	return filteredUsers;
+  }
+  
+  getTeachers(){	    
+	var filteredUsers = this.getLocal().filter(user => {
+		return user.role === "Учитель";
     });	
 	return filteredUsers;
   }

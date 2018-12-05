@@ -20,17 +20,18 @@ export class ScheduleService {
     return this.http.get(`http://localhost:3000/lesson/` + id);
   }
 
-    /*register(lesson: Lesson) {		
+  addLesson(lesson: Lesson) {		
         return this.http.post(`http://localhost:3000/addLesson`, lesson);
-    }*/
+  }
 
-    /*update(user: User) {
-        return this.http.put(`/users/` + user.id, user);
-    }*/
+  update(lesson: Lesson) {
+        return this.http.put(`http://localhost:3000/schedule/` + lesson.id, lesson);
+  }
 
-    /*delete(id: number) {
-        return this.http.delete('http://localhost:3000/deleteLesson/' + id);
-    }*/
+  delete(id: number) {
+    return this.http.delete('http://localhost:3000/deleteLesson/' + id);
+  }
+  
   isMyLesson(id: number) {
 	var user = JSON.parse(localStorage.getItem('currentUser'));  
 	if (user.role === "admin") {

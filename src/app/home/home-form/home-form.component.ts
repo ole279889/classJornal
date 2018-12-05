@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-
-import { User } from '../shared/models';
-import { Lesson } from '../shared/models';
-import { UserService, ScheduleService } from '../shared/services';
+import { User } from '../../shared/models';
+import { Lesson } from '../../shared/models';
+import { UserService, ScheduleService } from '../../shared/services';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  styleUrls: ['home.component.css'],
-  templateUrl: 'home.component.html'
+  styleUrls: ['home-form.component.css'],
+  templateUrl: 'home-form.component.html'
 })
 export class HomeComponent implements OnInit {
   currentUser: User;
@@ -30,9 +29,9 @@ export class HomeComponent implements OnInit {
   }
 
   deleteLesson(id: number) {
-    /*this.scheduleService.delete(id).pipe(first()).subscribe(() => { 
+    this.scheduleService.delete(id).pipe(first()).subscribe(() => { 
         this.loadSchedule() 
-    });*/
+    });
   }
   
   gotoMarks(id: number) {
@@ -55,5 +54,9 @@ export class HomeComponent implements OnInit {
     this.scheduleService.getAll().pipe(first()).subscribe((_schedule : Lesson[]) => {             
 	  this.schedule = _schedule; 
     });
+  }
+  
+  lessIns() {
+	this.loadSchedule();
   }
 }

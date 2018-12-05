@@ -1,0 +1,66 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Добавление нового занятия</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+  
+    <form [formGroup]="addLessonForm" (ngSubmit)="onSubmit()">
+	
+      <div class="form-group">
+        <label for="date">Дата</label>
+        <input type="date" formControlName="date" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.date.errors }" />
+        <div *ngIf="submitted && f.date.errors" class="invalid-feedback">
+            <div *ngIf="f.date.errors.required">Дата обязательна к заполнению!</div>
+        </div>
+      </div>
+	  
+      <div class="form-group">
+        <label for="subject">Предмет</label>        
+		<select formControlName="subject" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.subject.errors  }" >
+          <option *ngFor="let subject of subjects" [ngValue]="subject.subject">
+            {{ subject.subject }}
+          </option>
+        </select>
+        <div *ngIf="submitted && f.subject.errors" class="invalid-feedback">
+            <div *ngIf="f.subject.errors.required">Предмет обязателен к заполнению!</div>
+        </div>
+      </div>
+	  	  
+	  <div class="form-group" >
+        <label for="group">Класс</label>       
+        <select formControlName="group" class="form-control" [ngClass]="{ 'is-invalid': submitted && groupIsEmpty }" >
+          <option *ngFor="let group of groups" [ngValue]="group.group">
+            {{ group.group }}
+          </option>
+        </select>
+		<div *ngIf="submitted && groupIsEmpty" class="invalid-feedback">
+            <div *ngIf="groupIsEmpty">Класс обязателен к заполнению!</div>
+        </div>
+      </div>
+      
+	  <div class="form-group">
+        <label for="teacherId">Преподаватель</label>       
+        <select formControlName="teacherId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.teacherId.errors }" >
+          <option *ngFor="let teacher of teachers" [ngValue]="teacher.id">
+            {{ teacher.firstName + " " + teacher.lastName }}
+          </option>
+        </select>
+		<div *ngIf="submitted && f.teacherId.errors" class="invalid-feedback">
+            <div *ngIf="f.teacherId.errors.required">Преподаватель обязателен к заполнению!</div>
+        </div>
+      </div>
+	  	  
+      <div class="form-group">
+          <button [disabled]="loading" class="btn btn-primary">Добавить</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Отмена</button>
+      </div>
+    </form>
+  </div> 
+</ng-template>
+
+<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Добавить занятия</button>
+
+<hr>

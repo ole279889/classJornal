@@ -45,6 +45,16 @@ function maxMarkID() {
   return (maxMarkID + 1).toString();;  
 }
 
+function maxLessonID() {  
+  var maxLessonID = 0;
+  for (var i = 0; i < _schedule.length; i++) {
+    if(parseInt(_schedule[i]) > maxLessonID){
+	  maxLessonID = parseInt(_schedule[i]);
+	}
+  }
+  return (maxLessonID + 1).toString();;  
+}
+
 app.get('/groups', function (req, res) {	
   fs.readFile( __dirname + "/" + "backend-data/groups.json", 'utf8', function (err, data) {    
     res.end( data );
@@ -119,6 +129,20 @@ app.post('/addMark', function (req, res) {
   res.end(JSON.stringify(marks));   
 });
 
+app.post('/addLesson', function (req, res) {   
+  schedule = JSON.parse( _schedule );	  
+  var lesson = {
+	      "id"        : maxLessonID(),
+          "date"      : req.body.date,
+          "subject"   : req.body.subject,
+	      "group"     : req.body.group,
+	      "teacherId" : req.body.teacherId		    
+  }
+  schedule.push(lesson);
+  _schedule = JSON.stringify(schedule);	  
+  res.end(JSON.stringify(schedule));   
+});
+
 app.post('/authenticate', function (req, res) {   
   users = JSON.parse( _users );
   var filteredUsers = users.filter(user => {
@@ -165,6 +189,18 @@ app.delete('/deleteMark/:id', function (req, res) {
   marks.splice(marks.findIndex((item) => item.id === req.params.id), 1);	  
   _marks = JSON.stringify(marks);      
   res.end( JSON.stringify(marks));   
+});
+
+app.delete('/deleteLesson/:id', function (req, res) {
+  var schedule = JSON.parse(_schedule);
+  var marks = JSON.parse(_marks);
+  var filteredMarks = marks.filter(mark => {
+    return mark.lessonId != req.params.id;
+  }); 
+  schedule.splice(schedule.findIndex((item) => item.id === req.params.id), 1);	    
+  _schedule = JSON.stringify(schedule); 
+  _marks = JSON.stringify(filteredMarks);   
+  res.end( JSON.stringify(schedule));   
 });
 
 app.use(function(err, req, res, next) {
