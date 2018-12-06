@@ -20,7 +20,7 @@
   
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef>Изменить</th>
-    <td mat-cell *matCellDef="let user"><button (click)="deleteUser(user.id)" type="button" class="btn btn-default"><img src="./src/app/shared/assets/edit.png" width="25"/></button></td>
+    <td mat-cell *matCellDef="let user"><user-edit [user] = "user" (userUpd)="userUpd($event)"></user-edit></td>
   </ng-container>
   
   <ng-container matColumnDef="drop">

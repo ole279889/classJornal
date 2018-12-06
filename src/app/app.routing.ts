@@ -1,9 +1,9 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home-form/home-form.component';
+import { HomeComponent } from './home';
 import { UsersComponent } from './users';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
-import { MarksFormComponent } from './marks/mark-form/marks-form.component';
+import { MarksFormComponent } from './marks';
 import { AuthGuard } from './shared/guards';
 
 const appRoutes: Routes = [

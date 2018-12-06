@@ -43,9 +43,9 @@ export class UserService {
     return this.http.post(`http://localhost:3000/addUser`, user);
   }
 
-  /*update(user: User) {
-    return this.http.put(`/users/` + user.id, user);
-  }*/
+  update(user: User) {
+    return this.http.put(`http://localhost:3000/users/` + user.id, user);
+  }
 
   delete(id: number) {
     return this.http.delete('http://localhost:3000/deleteUser/' + id);

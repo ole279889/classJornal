@@ -188,6 +188,17 @@ app.put('/schedule/:id', function (req, res) {
   res.end(_schedule);   
 });
 
+app.put('/users/:id', function (req, res) {   
+  users = JSON.parse( _users );  
+  for (var i = 0; i < users.length; i++) {
+    if(users[i].id === req.params.id){
+	  users[i] = req.body;	  
+	}
+  }
+  _users = JSON.stringify(users)    
+  res.end(_users);   
+});
+
 app.delete('/deleteUser/:id', function (req, res) {
   var users = JSON.parse(_users);
   users.splice(users.findIndex((item) => item.id === req.params.id), 1);	  

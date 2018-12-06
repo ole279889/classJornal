@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../shared/models';
-import { UserService } from '../shared/services';
+import { User } from '../../shared/models';
+import { UserService } from '../../shared/services';
 
 @Component({
   styleUrls: ['users.component.css'],
@@ -30,7 +30,13 @@ export class UsersComponent implements OnInit {
   }
 
   private loadAllUsers() {		
-    this.userService.refreshUsers()             
-	this.users = this.userService.users;	  
+    this.userService.getAll().pipe(first()).subscribe((_users : User[]) => {             
+	    this.users = _users; 
+	    this.userService.saveLocal(_users);       		
+    });    	  
+  }
+  
+  userUpd() {
+	this.loadAllUsers();
   }
 }
